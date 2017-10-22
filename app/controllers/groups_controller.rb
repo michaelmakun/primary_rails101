@@ -41,6 +41,28 @@ class GroupsController < ApplicationController
     redirect_to groups_path, alert: "Group alerted"
   end
 
+  def join
+    @group = Group.find(params[:id])
+    if !current_user.is_member_of?(@group)
+      current_user.join!(@group)
+      flash[:notice] = "加入群组#{@group.title}成功"
+    else
+      flash[:warning] = "您已是本群组成员了！"
+    end
+    redirect_to group_path(@group)
+  end
+
+  def quit
+    @group = Group.find(params[:id])
+    if current_user.is_member_of?(@group)
+      current_user.quit!(@group)
+      flash[:alert] = "已退出群组#{@group.title}"
+    else
+      flash[:warning] = "您不是群组成员，不用退出〜"
+    end
+    redirect_to group_path(@group)
+  end
+
   private
   def find_group_and_check_permission
     @group = Group.find(params[:id])
