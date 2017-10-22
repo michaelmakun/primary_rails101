@@ -2,27 +2,5 @@
   <h2>编缉讨论版</h2>
 
   <hr>
-  <%= form_for @group do |f| %>
-
-  <% if @group.errors.any? %>
-    <ul>
-      <% @group.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  <% end %>
-
-  <p>
-    <%= f.label :title %> <br>
-    <%= f.text_field :title %>
-  </p>
-
-  <p>
-    <%= f.label :description %> <br>
-    <%= f.text_area :description %>
-  </p>
-
-  <%= f.submit "Submit", :disable_with => "Submitting..." %>
-
-  <% end %>
+    <%= render "form" %>
 </div>
