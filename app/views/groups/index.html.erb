@@ -9,7 +9,6 @@
         <td>Title</td>
         <td>Description</td>
         <td>Creator</td>
-        <td>Goverment</td>
       </tr>
     </thead>
     <tbody>
@@ -20,9 +19,11 @@
           <td><%= group.description %></td>
           <td><%= group.user.email.split("@").first %></td>
           <td>
-            <%= link_to("Edit", edit_group_path(group), class: "btn btn-sm btn-default") %>
-            <%= link_to("Delete", group_path(group), method: :delete, class: "btn btn-sm btn-default",
-                        data: { confirm: "Are you sure?" } ) %>
+            <% if current_user && current_user == group.user %>
+              <%= link_to("Edit", edit_group_path(group), class: "btn btn-sm btn-default") %>
+              <%= link_to("Delete", group_path(group), method: :delete, class: "btn btn-sm btn-default",
+                          data: { confirm: "Are you sure?" } ) %>
+            <% end %>
           </td>
         </tr>
       <% end %>
